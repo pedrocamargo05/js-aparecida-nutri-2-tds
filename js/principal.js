@@ -1,49 +1,44 @@
 var titulo = document.querySelector(".titulo");
 titulo.textContent = "Aparecida Nutricionista";
 
-var paciente = document.querySelector("#primeiro-paciente");
+var trPacientes = document.querySelectorAll(".paciente");
 
-var tdPeso = paciente.querySelector(".info-peso");
-var tdAltura = paciente.querySelector(".info-altura");
-var tdImc = paciente.querySelector(".info-imc");
+for (var i = 0; i < trPacientes.length; i++) {
 
-var peso = tdPeso.textContent;
-var altura = tdAltura.textContent;
+    var trPaciente = trPacientes[i];
 
-var imc = peso / (altura * altura)
-tdImc.textContent = imc;
+    var tdPeso = trPaciente.querySelector(".info-peso");
+    var tdAltura = trPaciente.querySelector(".info-altura");
+    var tdImc = trPaciente.querySelector(".info-imc");
 
-var pacientes = document.querySelectorAll(".paciente");
-
-for (var i = 0; i < pacientes.length; i++) {
-
-    var paciente = pacientes[i];
-
-    var tdPeso = paciente.querySelector(".info-peso");
     var peso = tdPeso.textContent;
-
-    var tdAltura = paciente.querySelector(".info-altura");
     var altura = tdAltura.textContent;
-
-    var tdImc = paciente.querySelector(".info-imc");
 
     var pesoEhValido = true;
     var alturaEhValida = true;
 
     if (peso <= 0 || peso >= 1000) {
-        console.log("Peso inválido!");
         pesoEhValido = false;
-        tdImc.textContent = "Peso inválido";
+        trPaciente.classList.add("paciente-invalido");
+        tdPeso.classList.add("peso-invalido");
     }
 
     if (altura <= 0 || altura >= 3.00) {
-        console.log("Altura inválida!");
-        alturaEhValida = false;
-        tdImc.textContent = "Altura inválida";
+        alturaEhValida = false
+        trPaciente.classList.add("paciente-invalido");
+        tdAltura.classList.add("altura-invalida");
+  
     }
 
-  if (alturaEhValida && pesoEhValido) {
-        var imc = peso / (altura * altura);
-        tdImc.textContent = imc;
+    if (pesoEhValido && alturaEhValida) {
+        var imc = (peso / (altura * altura));
+        tdImc.textContent = imc.toFixed(2);
+    } else {
+        tdImc.textContent = "Altura e/ou peso inválidos!"
     }
 }
+titulo.addEventListener("click", mostraMensagem)
+function mostraMensagem() {
+    console.log("Olá eu fui clicado!");
+}
+
